@@ -5,10 +5,10 @@ jobs:
   build:
     executor:
       name: node/default
-      tag: '12'
+      tag: '22'
     steps:
       - checkout
       - node/with-cache:
           steps:
-            - run: npm install
+            - run: npm ci
       - run: npm run test

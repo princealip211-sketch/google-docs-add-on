@@ -1,1 +1,1040 @@
-<script>!function(e){function t(r){if(n[r])return n[r].exports;var a=n[r]={exports:{},id:r,loaded:!1};return e[r].call(a.exports,a,a.exports,t),a.loaded=!0,a.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{default:e}}var a=n(1),o=r(a);ReactDOM.render(React.createElement(o.default,null),document.getElementById("container"))},function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{default:e}}function a(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function i(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var s=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),c=n(2),l=n(7),u=r(l),f=n(12),d=r(f),p=function(e){function t(e){a(this,t);var n=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));return n.state={sitesLoaded:!1,sites:[],error:null,authorizationUrl:null},n.updateAuthUrl=n.updateAuthUrl.bind(n),n.updateSiteList=n.updateSiteList.bind(n),n.errorHandler=n.errorHandler.bind(n),n.clearError=n.clearError.bind(n),n}return i(t,e),s(t,[{key:"componentDidMount",value:function(){var e=this;this.updateSiteList(),this.updateAuthUrl(),this.authTimer=setInterval(function(){return e.updateAuthUrl()},18e4)}},{key:"componentWillUnmount",value:function(){clearInterval(this.authTimer)}},{key:"updateSiteList",value:function(){var e=this;(0,c.loadSites)().then(function(t){return e.setState({sites:t,sitesLoaded:!0})}).catch(function(t){return e.setState({error:t})})}},{key:"updateAuthUrl",value:function(){var e=this;(0,c.getAuthUrl)().then(function(t){return e.setState({authorizationUrl:t})}).catch(function(t){return e.setState({error:t})})}},{key:"errorHandler",value:function(e){this.setState({error:e})}},{key:"clearError",value:function(){this.setState({error:null})}},{key:"removeSite",value:function(e){return(0,c.deleteSite)(e).then(this.updateSiteList).catch(this.errorHandler)}},{key:"setPost",value:function(e,t){var n=this.state.sites.map(function(n){return n.blog_id!==e?n:Object.assign({},n,{post:t})});this.setState({sites:n})}},{key:"updateSite",value:function(e){var t=this;return(0,c.refreshSite)(e).then(function(e){var n=t.state.sites.map(function(t){return t.blog_id===e.blog_id?e:t});return t.setState({sites:n}),e}).catch(this.errorHandler)}},{key:"render",value:function(){var e=this,t=this.state.sitesLoaded&&this.state.sites.length>0,n=t?"Pick a site to copy this document to below. It will be saved on your site as a draft.":"Welcome! To get started, add your first WordPress.com or Jetpack-connected site by clicking the button at the bottom.",r=this.state.sitesLoaded?null:React.createElement("p",{className:"loading"},"Loading…");return React.createElement("div",{className:"container"},React.createElement("div",{className:"header"},React.createElement("h1",null,React.createElement("svg",{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"},React.createElement("rect",{x:"0",fill:"none",width:"24",height:"24"}),React.createElement("g",null,React.createElement("path",{d:"M21 11v8c0 1.105-.895 2-2 2H5c-1.105 0-2-.895-2-2V5c0-1.105.895-2 2-2h8l-2 2H5v14h14v-6l2-2zM7 17h3l7.5-7.5-3-3L7 14v3zm9.94-12.94L15.5 5.5l3 3 1.44-1.44c.585-.585.585-1.535 0-2.12l-.88-.88c-.585-.585-1.535-.585-2.12 0z"})))," Draft to WordPress"),React.createElement("div",{className:"header__help-text"},React.createElement("p",null,n))),React.createElement("div",{className:"sites-list",id:"sites-list"},r,React.createElement("ul",null,this.state.sites.map(function(t){return React.createElement(u.default,{key:t.blog_id,site:t,errorHandler:e.errorHandler,setPost:e.setPost.bind(e,t.blog_id),removeSite:e.removeSite.bind(e,t.blog_id),refreshSite:e.updateSite.bind(e,t.blog_id),updateSiteList:e.updateSiteList})}),React.createElement("li",{className:"sites-list__add-site"},React.createElement("a",{className:"button button-secondary",href:this.state.authorizationUrl,target:"_blank"},"Add WordPress Site")))),React.createElement(d.default,{msg:this.state.error,clearError:this.clearError}),React.createElement("div",{className:"footer"},React.createElement("div",{className:"footer__help-link"},React.createElement("a",{title:"Help",href:"https://apps.wordpress.com/google-docs/support/"},React.createElement("svg",{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"},React.createElement("rect",{x:"0",fill:"none",width:"24",height:"24"}),React.createElement("g",null,React.createElement("path",{d:"M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4 8c0-2.21-1.79-4-4-4s-4 1.79-4 4h2c0-1.103.897-2 2-2s2 .897 2 2-.897 2-2 2c-.552 0-1 .448-1 1v2h2v-1.14c1.722-.447 3-1.998 3-3.86zm-3 6h-2v2h2v-2z"})))))))}}]),t}(React.Component);t.default=p},function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{default:e}}function a(){return new u.default(function(e,t){google.script.run.withSuccessHandler(e).withFailureHandler(t).listSites()})}function o(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};return new u.default(function(n,r){google.script.run.withSuccessHandler(n).withFailureHandler(r).postToWordPress(e,t)})}function i(e){return new u.default(function(t,n){google.script.run.withSuccessHandler(t).withFailureHandler(n).refreshSite(e)})}function s(e){return new u.default(function(t,n){google.script.run.withSuccessHandler(t).withFailureHandler(n).deleteSite(e)})}function c(){return new u.default(function(e,t){google.script.run.withSuccessHandler(e).withFailureHandler(t).getAuthUrl()})}Object.defineProperty(t,"__esModule",{value:!0}),t.loadSites=a,t.postToWordPress=o,t.refreshSite=i,t.deleteSite=s,t.getAuthUrl=c;var l=n(3),u=r(l);window.Promise||(window.Promise=u.default)},function(e,t,n){(function(t){!function(n){function r(){}function a(e,t){return function(){e.apply(t,arguments)}}function o(e){if(!(this instanceof o))throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],f(e,this)}function i(e,t){for(;3===e._state;)e=e._value;return 0===e._state?void e._deferreds.push(t):(e._handled=!0,void o._immediateFn(function(){var n=1===e._state?t.onFulfilled:t.onRejected;if(null===n)return void(1===e._state?s:c)(t.promise,e._value);var r;try{r=n(e._value)}catch(e){return void c(t.promise,e)}s(t.promise,r)}))}function s(e,t){try{if(t===e)throw new TypeError("A promise cannot be resolved with itself.");if(t&&("object"==typeof t||"function"==typeof t)){var n=t.then;if(t instanceof o)return e._state=3,e._value=t,void l(e);if("function"==typeof n)return void f(a(n,t),e)}e._state=1,e._value=t,l(e)}catch(t){c(e,t)}}function c(e,t){e._state=2,e._value=t,l(e)}function l(e){2===e._state&&0===e._deferreds.length&&o._immediateFn(function(){e._handled||o._unhandledRejectionFn(e._value)});for(var t=0,n=e._deferreds.length;t<n;t++)i(e,e._deferreds[t]);e._deferreds=null}function u(e,t,n){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof t?t:null,this.promise=n}function f(e,t){var n=!1;try{e(function(e){n||(n=!0,s(t,e))},function(e){n||(n=!0,c(t,e))})}catch(e){if(n)return;n=!0,c(t,e)}}var d=setTimeout;o.prototype.catch=function(e){return this.then(null,e)},o.prototype.then=function(e,t){var n=new this.constructor(r);return i(this,new u(e,t,n)),n},o.all=function(e){return new o(function(t,n){function r(e,i){try{if(i&&("object"==typeof i||"function"==typeof i)){var s=i.then;if("function"==typeof s)return void s.call(i,function(t){r(e,t)},n)}a[e]=i,0===--o&&t(a)}catch(e){n(e)}}if(!e||"undefined"==typeof e.length)throw new TypeError("Promise.all accepts an array");var a=Array.prototype.slice.call(e);if(0===a.length)return t([]);for(var o=a.length,i=0;i<a.length;i++)r(i,a[i])})},o.resolve=function(e){return e&&"object"==typeof e&&e.constructor===o?e:new o(function(t){t(e)})},o.reject=function(e){return new o(function(t,n){n(e)})},o.race=function(e){return new o(function(t,n){for(var r=0,a=e.length;r<a;r++)e[r].then(t,n)})},o._immediateFn="function"==typeof t&&function(e){t(e)}||function(e){d(e,0)},o._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},o._setImmediateFn=function(e){o._immediateFn=e},o._setUnhandledRejectionFn=function(e){o._unhandledRejectionFn=e},"undefined"!=typeof e&&e.exports?e.exports=o:n.Promise||(n.Promise=o)}(this)}).call(t,n(4).setImmediate)},function(e,t,n){(function(e){function r(e,t){this._id=e,this._clearFn=t}var a="undefined"!=typeof e&&e||"undefined"!=typeof self&&self||window,o=Function.prototype.apply;t.setTimeout=function(){return new r(o.call(setTimeout,a,arguments),clearTimeout)},t.setInterval=function(){return new r(o.call(setInterval,a,arguments),clearInterval)},t.clearTimeout=t.clearInterval=function(e){e&&e.close()},r.prototype.unref=r.prototype.ref=function(){},r.prototype.close=function(){this._clearFn.call(a,this._id)},t.enroll=function(e,t){clearTimeout(e._idleTimeoutId),e._idleTimeout=t},t.unenroll=function(e){clearTimeout(e._idleTimeoutId),e._idleTimeout=-1},t._unrefActive=t.active=function(e){clearTimeout(e._idleTimeoutId);var t=e._idleTimeout;t>=0&&(e._idleTimeoutId=setTimeout(function(){e._onTimeout&&e._onTimeout()},t))},n(5),t.setImmediate="undefined"!=typeof self&&self.setImmediate||"undefined"!=typeof e&&e.setImmediate||this&&this.setImmediate,t.clearImmediate="undefined"!=typeof self&&self.clearImmediate||"undefined"!=typeof e&&e.clearImmediate||this&&this.clearImmediate}).call(t,function(){return this}())},function(e,t,n){(function(e,t){!function(e,n){"use strict";function r(e){"function"!=typeof e&&(e=new Function(""+e));for(var t=new Array(arguments.length-1),n=0;n<t.length;n++)t[n]=arguments[n+1];var r={callback:e,args:t};return m[h]=r,p(h),h++}function a(e){delete m[e]}function o(e){var t=e.callback,r=e.args;switch(r.length){case 0:t();break;case 1:t(r[0]);break;case 2:t(r[0],r[1]);break;case 3:t(r[0],r[1],r[2]);break;default:t.apply(n,r)}}function i(e){if(g)setTimeout(i,0,e);else{var t=m[e];if(t){g=!0;try{o(t)}finally{a(e),g=!1}}}}function s(){p=function(e){t.nextTick(function(){i(e)})}}function c(){if(e.postMessage&&!e.importScripts){var t=!0,n=e.onmessage;return e.onmessage=function(){t=!1},e.postMessage("","*"),e.onmessage=n,t}}function l(){var t="setImmediate$"+Math.random()+"$",n=function(n){n.source===e&&"string"==typeof n.data&&0===n.data.indexOf(t)&&i(+n.data.slice(t.length))};e.addEventListener?e.addEventListener("message",n,!1):e.attachEvent("onmessage",n),p=function(n){e.postMessage(t+n,"*")}}function u(){var e=new MessageChannel;e.port1.onmessage=function(e){var t=e.data;i(t)},p=function(t){e.port2.postMessage(t)}}function f(){var e=v.documentElement;p=function(t){var n=v.createElement("script");n.onreadystatechange=function(){i(t),n.onreadystatechange=null,e.removeChild(n),n=null},e.appendChild(n)}}function d(){p=function(e){setTimeout(i,0,e)}}if(!e.setImmediate){var p,h=1,m={},g=!1,v=e.document,y=Object.getPrototypeOf&&Object.getPrototypeOf(e);y=y&&y.setTimeout?y:e,"[object process]"==={}.toString.call(e.process)?s():c()?l():e.MessageChannel?u():v&&"onreadystatechange"in v.createElement("script")?f():d(),y.setImmediate=r,y.clearImmediate=a}}("undefined"==typeof self?"undefined"==typeof e?this:e:self)}).call(t,function(){return this}(),n(6))},function(e,t){function n(){throw new Error("setTimeout has not been defined")}function r(){throw new Error("clearTimeout has not been defined")}function a(e){if(u===setTimeout)return setTimeout(e,0);if((u===n||!u)&&setTimeout)return u=setTimeout,setTimeout(e,0);try{return u(e,0)}catch(t){try{return u.call(null,e,0)}catch(t){return u.call(this,e,0)}}}function o(e){if(f===clearTimeout)return clearTimeout(e);if((f===r||!f)&&clearTimeout)return f=clearTimeout,clearTimeout(e);try{return f(e)}catch(t){try{return f.call(null,e)}catch(t){return f.call(this,e)}}}function i(){m&&p&&(m=!1,p.length?h=p.concat(h):g=-1,h.length&&s())}function s(){if(!m){var e=a(i);m=!0;for(var t=h.length;t;){for(p=h,h=[];++g<t;)p&&p[g].run();g=-1,t=h.length}p=null,m=!1,o(e)}}function c(e,t){this.fun=e,this.array=t}function l(){}var u,f,d=e.exports={};!function(){try{u="function"==typeof setTimeout?setTimeout:n}catch(e){u=n}try{f="function"==typeof clearTimeout?clearTimeout:r}catch(e){f=r}}();var p,h=[],m=!1,g=-1;d.nextTick=function(e){var t=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)t[n-1]=arguments[n];h.push(new c(e,t)),1!==h.length||m||a(s)},c.prototype.run=function(){this.fun.apply(null,this.array)},d.title="browser",d.browser=!0,d.env={},d.argv=[],d.version="",d.versions={},d.on=l,d.addListener=l,d.once=l,d.off=l,d.removeListener=l,d.removeAllListeners=l,d.emit=l,d.prependListener=l,d.prependOnceListener=l,d.listeners=function(e){return[]},d.binding=function(e){throw new Error("process.binding is not supported")},d.cwd=function(){return"/"},d.chdir=function(e){throw new Error("process.chdir is not supported")},d.umask=function(){return 0}},function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{default:e}}function a(e){if(Array.isArray(e)){for(var t=0,n=Array(e.length);t<e.length;t++)n[t]=e[t];return n}return Array.from(e)}function o(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var c=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),l=n(8),u=r(l),f=n(9),d=r(f),p=n(10),h=r(p),m=n(11),g=r(m),v=function(e){function t(e){o(this,t);var n=i(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e)),r=e.site.post,a=r&&r.tags?r.tags:[],s=e.site.postTypes&&e.site.postTypes.length>0?e.site.postTypes[0].name:"post";return n.state={optionsExpanded:!!r,siteRefreshing:!1,postCategories:r&&r.categories?r.categories:[],postTags:a,postTagsStr:a.join(", "),postType:r&&r.type?r.type:s},n.toggleOptions=n.toggleOptions.bind(n),n.updateSite=n.updateSite.bind(n),n.categorizePost=n.categorizePost.bind(n),n.uncategorizePost=n.uncategorizePost.bind(n),n.tagChangeHandler=n.tagChangeHandler.bind(n),n.postTypeChangeHandler=n.postTypeChangeHandler.bind(n),n}return s(t,e),c(t,[{key:"componentDidMount",value:function(){(!this.props.site.categories||this.props.site.categories.length<1)&&this.updateSite(),(!this.props.site.postTypes||this.props.site.postTypes.length<1)&&this.updateSite()}},{key:"toggleOptions",value:function(){this.setState({optionsExpanded:!this.state.optionsExpanded})}},{key:"updateSite",value:function(){var e=this;return this.setState({siteRefreshing:!0}),this.props.refreshSite().then(function(){return e.setState({siteRefreshing:!1})}).catch(function(){return e.setState({siteRefreshing:!1})})}},{key:"categorizePost",value:function(e){-1===this.state.postCategories.indexOf(e)&&this.setState({postCategories:[].concat(a(this.state.postCategories),[e])})}},{key:"uncategorizePost",value:function(e){var t=this.state.postCategories.indexOf(e);if(-1!==t){var n=[].concat(a(this.state.postCategories.slice(0,t)),a(this.state.postCategories.slice(t+1)));this.setState({postCategories:n})}}},{key:"tagChangeHandler",value:function(e){var t=e.target.value;this.setState({postTags:t.split(/\s*,\s*/),postTagsStr:t})}},{key:"postTypeChangeHandler",value:function(e){this.setState({postType:e.target.value})}},{key:"render",value:function(){var e=this,t=this.props.site,n=t.post,r=!!n,a=t.categories||[],o=t.postTypes||[],i=t.info.icon&&t.info.icon.img?t.info.icon.img:"https://secure.gravatar.com/blavatar/e6392390e3bcfadff3671c5a5653d95b",s=r?React.createElement("span",{className:"sites-list__post-link"},React.createElement("a",{href:n.URL},"Preview on ",t.info.name)):null,c=this.state.optionsExpanded?{}:{display:"none"},l=this.state.optionsExpanded?"sites-list__extended-toggle is-toggled":"sites-list__extended-toggle",f="sites-list__update-site"+(this.state.siteRefreshing?" sites-list__update-site--updating":""),p=o.find(function(t){return t.name===e.state.postType}),m=p&&p.taxonomies||[];return React.createElement("li",null,React.createElement("div",{className:"sites-list__basic"},React.createElement("div",{className:"sites-list__blavatar"},React.createElement("img",{src:i,alt:""})),React.createElement("div",{className:"sites-list__sitename"},React.createElement("a",{className:"sites-list__title",href:t.blog_url},t.info.name,React.createElement("br",null),React.createElement("em",null,t.blog_url))),React.createElement(u.default,{site:t,onPostSave:this.props.setPost,postTags:this.state.postTags,postCategories:this.state.postCategories,postType:this.state.postType,errorHandler:this.props.errorHandler}),React.createElement("a",{className:l,onClick:this.toggleOptions},React.createElement("svg",{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"},React.createElement("title",null,"Dropdown"),React.createElement("rect",{x:"0",fill:"none",width:"24",height:"24"}),React.createElement("g",null,React.createElement("path",{d:"M7 10l5 5 5-5"}))))),React.createElement("div",{className:"sites-list__preview"},s,React.createElement(h.default,{site:t,postType:this.state.postType,onChoose:this.postTypeChangeHandler})),React.createElement("div",{className:"sites-list__extended",style:c},React.createElement("h4",null,"Post Settings ",React.createElement("span",null,"(",React.createElement("a",{title:"Update site information",className:f,onClick:this.updateSite},React.createElement("svg",{height:"24",width:"24",xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"},React.createElement("g",null,React.createElement("path",{d:"M17.91 14c-.478 2.833-2.943 5-5.91 5-3.308 0-6-2.692-6-6s2.692-6 6-6h2.172l-2.086 2.086L13.5 10.5 18 6l-4.5-4.5-1.414 1.414L14.172 5H12c-4.418 0-8 3.582-8 8s3.582 8 8 8c4.08 0 7.438-3.055 7.93-7h-2.02z"})))," Refresh"),")")),React.createElement(g.default,{tagChangeHandler:this.tagChangeHandler,postTagsStr:this.state.postTagsStr,taxonomies:m}),React.createElement(d.default,{categories:a,postCategories:this.state.postCategories,onAddCategory:this.categorizePost,onRemoveCategory:this.uncategorizePost,taxonomies:m}),React.createElement("div",null,React.createElement("a",{href:"#",title:"Remove site from this list",className:"sites-list__delete-site",onClick:this.props.removeSite},"Remove ",t.info.name," ",React.createElement("svg",{width:"24",height:"24",xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"},React.createElement("title",null,"Trash"),React.createElement("rect",{x:"0",fill:"none",width:"24",height:"24"}),React.createElement("g",null,React.createElement("path",{d:"M6.187 8h11.625l-.695 11.125C17.05 20.18 16.177 21 15.12 21H8.88c-1.057 0-1.93-.82-1.997-1.875L6.187 8zM19 5v2H5V5h3V4c0-1.105.895-2 2-2h4c1.105 0 2 .895 2 2v1h3zm-9 0h4V4h-4v1z"})))))))}}]),t}(React.Component);t.default=v},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function a(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function o(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),s=n(2),c=6e4,l=function(e){var t=new Promise(function(e,t){var n=function(){return t({message:"Saving has timed out."})};window.setTimeout(n,c)});return Promise.race([e,t])},u=function(e){function t(e){r(this,t);var n=a(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));return n.state={disabled:!1},n.savePost=n.savePost.bind(n),n}return o(t,e),i(t,[{key:"savePost",value:function(){var e=this;this.setState({disabled:!0}),_tkq=window._tkq||[];var t=this.props.site.post?"gdocsaddon_post_update":"gdocsaddon_post_create";_tkq.push(["recordEvent",t,{blog_id:this.props.site.blog_id}]),l((0,s.postToWordPress)(this.props.site.blog_id,{categories:this.props.postCategories,tags:this.props.postTags,type:this.props.postType})).then(function(t){e.setState({disabled:!1}),e.props.onPostSave(t)}).catch(function(t){e.props.errorHandler(t),e.setState({disabled:!1})})}},{key:"render",value:function(){var e=this.props.site.post?"Update":"Save",t=this.state.disabled?"Saving...":e;return React.createElement("button",{className:"sites-list__save-draft",disabled:this.state.disabled,onClick:this.savePost},t)}}]),t}(React.Component);t.default=u},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=function(e){var t=e.categoryName,n=e.postCategories,r=e.addCategory,a=e.removeCategory,o=-1!==n.indexOf(t),i=function(e){var n=e.target;n.checked?r(t):a(t)};return React.createElement("li",null,React.createElement("label",null,React.createElement("input",{type:"checkbox",checked:o,onChange:i})," ",t))};t.default=function(e){var t=e.categories,r=e.postCategories,a=e.onAddCategory,o=e.onRemoveCategory,i=e.taxonomies;return i.includes("category")?React.createElement("div",null,React.createElement("span",null,"Categories"),React.createElement("br",null),React.createElement("ul",null,t.map(function(e){return React.createElement(n,{key:e.ID,categoryName:e.name,postCategories:r,addCategory:a,removeCategory:o})}))):null}},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default=function(e){var t=e.site,n=e.postType,r=e.onChoose;if(t.post)return null;var a=t.postTypes||[];if(1===a.length)return r({target:{value:a[0].name}}),null;var o=a.find(function(e){return e.name===n}),i=o&&o.labels&&o.labels.singular_name,s=i;return t.post||(s=React.createElement("select",{value:n,onChange:r},a.map(function(e){return React.createElement("option",{key:e.name,value:e.name},e.labels.singular_name)}))),React.createElement("div",{className:"sites-list__post-type"},React.createElement("label",null,"Post Type: ",s))}},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default=function(e){var t=e.tagChangeHandler,n=e.postTagsStr,r=e.taxonomies;return r.includes("post_tag")?React.createElement("div",null,React.createElement("label",null,"Tags",React.createElement("br",null),React.createElement("input",{type:"text",placeholder:"Add tags, separate with commas…",onChange:t,value:n}))):null}},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default=function(e){if(!e.msg)return null;var t=e.msg.message.match(/"message":"(.*?)"}/),n=React.createElement("div",null,React.createElement("p",null,React.createElement("code",{style:{fontSize:"12px",wordWrap:"break-word"}},e.msg.message)),React.createElement("p",null,React.createElement("a",{href:"https://support.wordpress.com",target:"_blank"},"Please report this error"))),r=function(t){return e.msg.message.indexOf(t)!==-1};return r("API calls to this blog have been disabled")?n=React.createElement("p",null,"Jetpack JSON API has been disabled - please ",React.createElement("a",{href:"https://apps.wordpress.com/google-docs/support/#json-api",target:"_blank"},"re-enable it")," to continue posting."):r("cURL error 28:")||r("Saving has timed out.")?n=React.createElement("p",null,"Connection to your site timed out. Try again and/or investigate server load."):r("[-32700]")?n=React.createElement("p",null,"Your site returned an unexpected response - are you ",React.createElement("a",{href:"https://apps.wordpress.com/google-docs/support/#other-plugins"},"running plugins")," that may be causing a problem?"):r("HTTP status code was not 200")?n=React.createElement("p",null,"Your server returned an unexpected response. This could be a misconfiguration, a bad plugin, or something may be broken. ",React.createElement("a",{href:"https://apps.wordpress.com/google-docs/support/#unexpected-response"},"Don't panic yet though!")):t&&t.length>0&&(n=React.createElement("p",null,t[1])),React.createElement("div",{className:"error",style:{margin:"0px 6px",position:"relative"}},React.createElement("p",{style:{width:"100%"}},React.createElement("svg",{onClick:e.clearError,style:{cursor:"pointer",position:"absolute",right:"5px",top:"12px"},width:"24",height:"24",xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"},React.createElement("rect",{x:"0",fill:"none",width:"24",height:"24"}),React.createElement("g",null,React.createElement("path",{d:"M17.705 7.705l-1.41-1.41L12 10.59 7.705 6.295l-1.41 1.41L10.59 12l-4.295 4.295 1.41 1.41L12 13.41l4.295 4.295 1.41-1.41L13.41 12l4.295-4.295z"}))),React.createElement("strong",null,"Error ",e.errorTitle)),n)}}]);</script>
+<script>/******/ (function() { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 39:
+/***/ (function(module) {
+
+(function (root) {
+
+  // Store setTimeout reference so promise-polyfill will be unaffected by
+  // other code modifying setTimeout (like sinon.useFakeTimers())
+  var setTimeoutFunc = setTimeout;
+
+  function noop() {}
+
+  // Polyfill for Function.prototype.bind
+  function bind(fn, thisArg) {
+    return function () {
+      fn.apply(thisArg, arguments);
+    };
+  }
+
+  function Promise(fn) {
+    if (!(this instanceof Promise)) throw new TypeError('Promises must be constructed via new');
+    if (typeof fn !== 'function') throw new TypeError('not a function');
+    this._state = 0;
+    this._handled = false;
+    this._value = undefined;
+    this._deferreds = [];
+
+    doResolve(fn, this);
+  }
+
+  function handle(self, deferred) {
+    while (self._state === 3) {
+      self = self._value;
+    }
+    if (self._state === 0) {
+      self._deferreds.push(deferred);
+      return;
+    }
+    self._handled = true;
+    Promise._immediateFn(function () {
+      var cb = self._state === 1 ? deferred.onFulfilled : deferred.onRejected;
+      if (cb === null) {
+        (self._state === 1 ? resolve : reject)(deferred.promise, self._value);
+        return;
+      }
+      var ret;
+      try {
+        ret = cb(self._value);
+      } catch (e) {
+        reject(deferred.promise, e);
+        return;
+      }
+      resolve(deferred.promise, ret);
+    });
+  }
+
+  function resolve(self, newValue) {
+    try {
+      // Promise Resolution Procedure: https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure
+      if (newValue === self) throw new TypeError('A promise cannot be resolved with itself.');
+      if (newValue && (typeof newValue === 'object' || typeof newValue === 'function')) {
+        var then = newValue.then;
+        if (newValue instanceof Promise) {
+          self._state = 3;
+          self._value = newValue;
+          finale(self);
+          return;
+        } else if (typeof then === 'function') {
+          doResolve(bind(then, newValue), self);
+          return;
+        }
+      }
+      self._state = 1;
+      self._value = newValue;
+      finale(self);
+    } catch (e) {
+      reject(self, e);
+    }
+  }
+
+  function reject(self, newValue) {
+    self._state = 2;
+    self._value = newValue;
+    finale(self);
+  }
+
+  function finale(self) {
+    if (self._state === 2 && self._deferreds.length === 0) {
+      Promise._immediateFn(function() {
+        if (!self._handled) {
+          Promise._unhandledRejectionFn(self._value);
+        }
+      });
+    }
+
+    for (var i = 0, len = self._deferreds.length; i < len; i++) {
+      handle(self, self._deferreds[i]);
+    }
+    self._deferreds = null;
+  }
+
+  function Handler(onFulfilled, onRejected, promise) {
+    this.onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : null;
+    this.onRejected = typeof onRejected === 'function' ? onRejected : null;
+    this.promise = promise;
+  }
+
+  /**
+   * Take a potentially misbehaving resolver function and make sure
+   * onFulfilled and onRejected are only called once.
+   *
+   * Makes no guarantees about asynchrony.
+   */
+  function doResolve(fn, self) {
+    var done = false;
+    try {
+      fn(function (value) {
+        if (done) return;
+        done = true;
+        resolve(self, value);
+      }, function (reason) {
+        if (done) return;
+        done = true;
+        reject(self, reason);
+      });
+    } catch (ex) {
+      if (done) return;
+      done = true;
+      reject(self, ex);
+    }
+  }
+
+  Promise.prototype['catch'] = function (onRejected) {
+    return this.then(null, onRejected);
+  };
+
+  Promise.prototype.then = function (onFulfilled, onRejected) {
+    var prom = new (this.constructor)(noop);
+
+    handle(this, new Handler(onFulfilled, onRejected, prom));
+    return prom;
+  };
+
+  Promise.all = function (arr) {
+    return new Promise(function (resolve, reject) {
+      if (!arr || typeof arr.length === 'undefined') throw new TypeError('Promise.all accepts an array');
+      var args = Array.prototype.slice.call(arr);
+      if (args.length === 0) return resolve([]);
+      var remaining = args.length;
+
+      function res(i, val) {
+        try {
+          if (val && (typeof val === 'object' || typeof val === 'function')) {
+            var then = val.then;
+            if (typeof then === 'function') {
+              then.call(val, function (val) {
+                res(i, val);
+              }, reject);
+              return;
+            }
+          }
+          args[i] = val;
+          if (--remaining === 0) {
+            resolve(args);
+          }
+        } catch (ex) {
+          reject(ex);
+        }
+      }
+
+      for (var i = 0; i < args.length; i++) {
+        res(i, args[i]);
+      }
+    });
+  };
+
+  Promise.resolve = function (value) {
+    if (value && typeof value === 'object' && value.constructor === Promise) {
+      return value;
+    }
+
+    return new Promise(function (resolve) {
+      resolve(value);
+    });
+  };
+
+  Promise.reject = function (value) {
+    return new Promise(function (resolve, reject) {
+      reject(value);
+    });
+  };
+
+  Promise.race = function (values) {
+    return new Promise(function (resolve, reject) {
+      for (var i = 0, len = values.length; i < len; i++) {
+        values[i].then(resolve, reject);
+      }
+    });
+  };
+
+  // Use polyfill for setImmediate for performance gains
+  Promise._immediateFn = (typeof setImmediate === 'function' && function (fn) { setImmediate(fn); }) ||
+    function (fn) {
+      setTimeoutFunc(fn, 0);
+    };
+
+  Promise._unhandledRejectionFn = function _unhandledRejectionFn(err) {
+    if (typeof console !== 'undefined' && console) {
+      console.warn('Possible Unhandled Promise Rejection:', err); // eslint-disable-line no-console
+    }
+  };
+
+  /**
+   * Set the immediate function to execute callbacks
+   * @param fn {function} Function to execute
+   * @deprecated
+   */
+  Promise._setImmediateFn = function _setImmediateFn(fn) {
+    Promise._immediateFn = fn;
+  };
+
+  /**
+   * Change the function to execute on unhandled rejection
+   * @param {function} fn Function to execute on unhandled rejection
+   * @deprecated
+   */
+  Promise._setUnhandledRejectionFn = function _setUnhandledRejectionFn(fn) {
+    Promise._unhandledRejectionFn = fn;
+  };
+
+  if ( true && module.exports) {
+    module.exports = Promise;
+  } else if (!root.Promise) {
+    root.Promise = Promise;
+  }
+
+})(this);
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/
+/******/ 	/* webpack/runtime/set anonymous default export name */
+/******/ 	!function() {
+/******/ 		// set .name for anonymous default exports per ES spec
+/******/ 		__webpack_require__.dn = function(x) {
+/******/ 			(Object.getOwnPropertyDescriptor(x, "name") || {}).writable || Object.defineProperty(x, "name", { value: "default", configurable: true });
+/******/ 		};
+/******/ 	}();
+/******/
+/************************************************************************/
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
+!function() {
+"use strict";
+
+// EXTERNAL MODULE: ./node_modules/promise-polyfill/promise.js
+var promise = __webpack_require__(39);
+var promise_default = /*#__PURE__*/__webpack_require__.n(promise);
+;// ./src/client/services.js
+/* global google, window */
+
+if (!window.Promise) {
+  window.Promise = (promise_default());
+}
+function loadSites() {
+  return new (promise_default())(function (resolve, reject) {
+    google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).listSites();
+  });
+}
+function postToWordPress(blogId) {
+  var extraFields = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return new (promise_default())(function (resolve, reject) {
+    google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).postToWordPress(blogId, extraFields);
+  });
+}
+function refreshSite(blogId) {
+  return new (promise_default())(function (resolve, reject) {
+    google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).refreshSite(blogId);
+  });
+}
+function deleteSite(blogId) {
+  return new (promise_default())(function (resolve, reject) {
+    google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).deleteSite(blogId);
+  });
+}
+function getAuthUrl() {
+  return new (promise_default())(function (resolve, reject) {
+    google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).getAuthUrl();
+  });
+}
+;// ./src/client/post-button.jsx
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+/* global React, window */
+
+var TIMEOUT_MS = 60000;
+var withTimeout = function withTimeout(prom) {
+  var timeoutPromise = new Promise(function (resolve, reject) {
+    var fail = function fail() {
+      return reject({
+        message: 'Saving has timed out.'
+      });
+    };
+    window.setTimeout(fail, TIMEOUT_MS);
+  });
+  return Promise.race([prom, timeoutPromise]);
+};
+var PostButton = /*#__PURE__*/function (_React$Component) {
+  function PostButton(props) {
+    var _this;
+    _classCallCheck(this, PostButton);
+    _this = _callSuper(this, PostButton, [props]);
+    _this.state = {
+      disabled: false
+    };
+    _this.savePost = _this.savePost.bind(_this);
+    return _this;
+  }
+  _inherits(PostButton, _React$Component);
+  return _createClass(PostButton, [{
+    key: "savePost",
+    value: function savePost() {
+      var _this2 = this;
+      this.setState({
+        disabled: true
+      });
+      _tkq = window._tkq || [];
+      var eventName = this.props.site.post ? 'gdocsaddon_post_update' : 'gdocsaddon_post_create';
+      _tkq.push(['recordEvent', eventName, {
+        blog_id: this.props.site.blog_id
+      }]);
+      withTimeout(postToWordPress(this.props.site.blog_id, {
+        categories: this.props.postCategories,
+        tags: this.props.postTags,
+        type: this.props.postType
+      })).then(function (post) {
+        _this2.setState({
+          disabled: false
+        });
+        _this2.props.onPostSave(post);
+      })["catch"](function (e) {
+        _this2.props.errorHandler(e);
+        _this2.setState({
+          disabled: false
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var buttonLabel = this.props.site.post ? 'Update' : 'Save';
+      var buttonText = this.state.disabled ? 'Saving...' : buttonLabel;
+      return /*#__PURE__*/React.createElement("button", {
+        className: "sites-list__save-draft",
+        disabled: this.state.disabled,
+        onClick: this.savePost
+      }, buttonText);
+    }
+  }]);
+}(React.Component);
+
+;// ./src/client/category-input.jsx
+var CategoryInput = function CategoryInput(_ref) {
+  var categoryName = _ref.categoryName,
+    postCategories = _ref.postCategories,
+    addCategory = _ref.addCategory,
+    removeCategory = _ref.removeCategory;
+  var checked = -1 !== postCategories.indexOf(categoryName);
+  var changeHandler = function changeHandler(_ref2) {
+    var target = _ref2.target;
+    if (target.checked) {
+      addCategory(categoryName);
+    } else {
+      removeCategory(categoryName);
+    }
+  };
+  return /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    checked: checked,
+    onChange: changeHandler
+  }), " ", categoryName));
+};
+/* harmony default export */ var category_input = (function (_ref3) {
+  var categories = _ref3.categories,
+    postCategories = _ref3.postCategories,
+    onAddCategory = _ref3.onAddCategory,
+    onRemoveCategory = _ref3.onRemoveCategory,
+    taxonomies = _ref3.taxonomies;
+  if (!taxonomies.includes('category')) {
+    return null;
+  }
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Categories"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("ul", null, categories.map(function (c) {
+    return /*#__PURE__*/React.createElement(CategoryInput, {
+      key: c.ID,
+      categoryName: c.name,
+      postCategories: postCategories,
+      addCategory: onAddCategory,
+      removeCategory: onRemoveCategory
+    });
+  })));
+});
+__webpack_require__.dn(category_input);
+;// ./src/client/post-type-input.jsx
+/* harmony default export */ var post_type_input = (function (_ref) {
+  var site = _ref.site,
+    postType = _ref.postType,
+    onChoose = _ref.onChoose;
+  // Do not show anything if the post has been created
+  if (site.post) {
+    return null;
+  }
+  var postTypes = site.postTypes || [];
+  if (1 === postTypes.length) {
+    onChoose({
+      target: {
+        value: postTypes[0].name
+      }
+    });
+    return null;
+  }
+  var postTypeObj = postTypes.find(function (t) {
+    return t.name === postType;
+  });
+  var postTypeName = postTypeObj && postTypeObj.labels && postTypeObj.labels.singular_name;
+  var field = postTypeName;
+  if (!site.post) {
+    field = /*#__PURE__*/React.createElement("select", {
+      value: postType,
+      onChange: onChoose
+    }, postTypes.map(function (t) {
+      return /*#__PURE__*/React.createElement("option", {
+        key: t.name,
+        value: t.name
+      }, t.labels.singular_name);
+    }));
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: "sites-list__post-type"
+  }, /*#__PURE__*/React.createElement("label", null, "Post Type: ", field));
+});
+__webpack_require__.dn(post_type_input);
+;// ./src/client/tag-input.jsx
+/* harmony default export */ var tag_input = (function (_ref) {
+  var tagChangeHandler = _ref.tagChangeHandler,
+    postTagsStr = _ref.postTagsStr,
+    taxonomies = _ref.taxonomies;
+  if (!taxonomies.includes('post_tag')) {
+    return null;
+  }
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", null, "Tags", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    placeholder: "Add tags, separate with commas\u2026",
+    onChange: tagChangeHandler,
+    value: postTagsStr
+  })));
+});
+__webpack_require__.dn(tag_input);
+;// ./src/client/site.jsx
+function site_typeof(o) { "@babel/helpers - typeof"; return site_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, site_typeof(o); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function site_classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function site_defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, site_toPropertyKey(o.key), o); } }
+function site_createClass(e, r, t) { return r && site_defineProperties(e.prototype, r), t && site_defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function site_toPropertyKey(t) { var i = site_toPrimitive(t, "string"); return "symbol" == site_typeof(i) ? i : i + ""; }
+function site_toPrimitive(t, r) { if ("object" != site_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != site_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function site_callSuper(t, o, e) { return o = site_getPrototypeOf(o), site_possibleConstructorReturn(t, site_isNativeReflectConstruct() ? Reflect.construct(o, e || [], site_getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function site_possibleConstructorReturn(t, e) { if (e && ("object" == site_typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return site_assertThisInitialized(t); }
+function site_assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function site_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (site_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function site_getPrototypeOf(t) { return site_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, site_getPrototypeOf(t); }
+function site_inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && site_setPrototypeOf(t, e); }
+function site_setPrototypeOf(t, e) { return site_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, site_setPrototypeOf(t, e); }
+/* global React */
+
+
+
+
+var Site = /*#__PURE__*/function (_React$Component) {
+  function Site(props) {
+    var _this;
+    site_classCallCheck(this, Site);
+    _this = site_callSuper(this, Site, [props]);
+    var post = props.site.post;
+    var postTags = post && post.tags ? post.tags : [];
+    var defaultPostType = props.site.postTypes && props.site.postTypes.length > 0 ? props.site.postTypes[0].name : 'post';
+    _this.state = {
+      optionsExpanded: !!post,
+      siteRefreshing: false,
+      postCategories: post && post.categories ? post.categories : [],
+      postTags: postTags,
+      postTagsStr: postTags.join(', '),
+      postType: post && post.type ? post.type : defaultPostType
+    };
+    _this.toggleOptions = _this.toggleOptions.bind(_this);
+    _this.updateSite = _this.updateSite.bind(_this);
+    _this.categorizePost = _this.categorizePost.bind(_this);
+    _this.uncategorizePost = _this.uncategorizePost.bind(_this);
+    _this.tagChangeHandler = _this.tagChangeHandler.bind(_this);
+    _this.postTypeChangeHandler = _this.postTypeChangeHandler.bind(_this);
+    return _this;
+  }
+  site_inherits(Site, _React$Component);
+  return site_createClass(Site, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (!this.props.site.categories || this.props.site.categories.length < 1) {
+        this.updateSite();
+      }
+      if (!this.props.site.postTypes || this.props.site.postTypes.length < 1) {
+        this.updateSite();
+      }
+    }
+  }, {
+    key: "toggleOptions",
+    value: function toggleOptions() {
+      this.setState({
+        optionsExpanded: !this.state.optionsExpanded
+      });
+    }
+  }, {
+    key: "updateSite",
+    value: function updateSite() {
+      var _this2 = this;
+      this.setState({
+        siteRefreshing: true
+      });
+      return this.props.refreshSite().then(function () {
+        return _this2.setState({
+          siteRefreshing: false
+        });
+      })["catch"](function () {
+        return _this2.setState({
+          siteRefreshing: false
+        });
+      });
+    }
+
+    /**
+     * @param {String} category name of the category
+     */
+  }, {
+    key: "categorizePost",
+    value: function categorizePost(category) {
+      if (-1 === this.state.postCategories.indexOf(category)) {
+        this.setState({
+          postCategories: [].concat(_toConsumableArray(this.state.postCategories), [category])
+        });
+      }
+    }
+
+    /**
+     * @param {String} category name of the category
+     */
+  }, {
+    key: "uncategorizePost",
+    value: function uncategorizePost(category) {
+      var index = this.state.postCategories.indexOf(category);
+      if (-1 !== index) {
+        var postCategories = [].concat(_toConsumableArray(this.state.postCategories.slice(0, index)), _toConsumableArray(this.state.postCategories.slice(index + 1)));
+        this.setState({
+          postCategories: postCategories
+        });
+      }
+    }
+  }, {
+    key: "tagChangeHandler",
+    value: function tagChangeHandler(event) {
+      var postTagsStr = event.target.value;
+      this.setState({
+        postTags: postTagsStr.split(/\s*,\s*/),
+        postTagsStr: postTagsStr
+      });
+    }
+  }, {
+    key: "postTypeChangeHandler",
+    value: function postTypeChangeHandler(event) {
+      this.setState({
+        postType: event.target.value
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+      var site = this.props.site;
+      var post = site.post;
+      var hasBeenPosted = !!post;
+      var categories = site.categories || [];
+      var postTypes = site.postTypes || [];
+      var blavatar = site.info.icon && site.info.icon.img ? site.info.icon.img : 'https://secure.gravatar.com/blavatar/e6392390e3bcfadff3671c5a5653d95b';
+      var previewLink = hasBeenPosted ? /*#__PURE__*/React.createElement("span", {
+        className: "sites-list__post-link"
+      }, /*#__PURE__*/React.createElement("a", {
+        href: post.URL
+      }, "Preview on ", site.info.name)) : null;
+      var extendedStyle = !this.state.optionsExpanded ? {
+        display: 'none'
+      } : {};
+      var extendedToggled = !this.state.optionsExpanded ? 'sites-list__extended-toggle' : 'sites-list__extended-toggle is-toggled';
+      var refreshClasses = 'sites-list__update-site' + (this.state.siteRefreshing ? ' sites-list__update-site--updating' : '');
+      var selectedPostType = postTypes.find(function (t) {
+        return t.name === _this3.state.postType;
+      });
+      var taxonomies = selectedPostType && selectedPostType.taxonomies || [];
+      return /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("div", {
+        className: "sites-list__basic"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "sites-list__blavatar"
+      }, /*#__PURE__*/React.createElement("img", {
+        src: blavatar,
+        alt: ""
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "sites-list__sitename"
+      }, /*#__PURE__*/React.createElement("a", {
+        className: "sites-list__title",
+        href: site.blog_url
+      }, site.info.name, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("em", null, site.blog_url))), /*#__PURE__*/React.createElement(PostButton, {
+        site: site,
+        onPostSave: this.props.setPost,
+        postTags: this.state.postTags,
+        postCategories: this.state.postCategories,
+        postType: this.state.postType,
+        errorHandler: this.props.errorHandler
+      }), /*#__PURE__*/React.createElement("a", {
+        className: extendedToggled,
+        onClick: this.toggleOptions
+      }, /*#__PURE__*/React.createElement("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 24 24"
+      }, /*#__PURE__*/React.createElement("title", null, "Dropdown"), /*#__PURE__*/React.createElement("rect", {
+        x: "0",
+        fill: "none",
+        width: "24",
+        height: "24"
+      }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
+        d: "M7 10l5 5 5-5"
+      }))))), /*#__PURE__*/React.createElement("div", {
+        className: "sites-list__preview"
+      }, previewLink, /*#__PURE__*/React.createElement(post_type_input, {
+        site: site,
+        postType: this.state.postType,
+        onChoose: this.postTypeChangeHandler
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "sites-list__extended",
+        style: extendedStyle
+      }, /*#__PURE__*/React.createElement("h4", null, "Post Settings ", /*#__PURE__*/React.createElement("span", null, "(", /*#__PURE__*/React.createElement("a", {
+        title: "Update site information",
+        className: refreshClasses,
+        onClick: this.updateSite
+      }, /*#__PURE__*/React.createElement("svg", {
+        height: "24",
+        width: "24",
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 24 24"
+      }, /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
+        d: "M17.91 14c-.478 2.833-2.943 5-5.91 5-3.308 0-6-2.692-6-6s2.692-6 6-6h2.172l-2.086 2.086L13.5 10.5 18 6l-4.5-4.5-1.414 1.414L14.172 5H12c-4.418 0-8 3.582-8 8s3.582 8 8 8c4.08 0 7.438-3.055 7.93-7h-2.02z"
+      }))), " Refresh"), ")")), /*#__PURE__*/React.createElement(tag_input, {
+        tagChangeHandler: this.tagChangeHandler,
+        postTagsStr: this.state.postTagsStr,
+        taxonomies: taxonomies
+      }), /*#__PURE__*/React.createElement(category_input, {
+        categories: categories,
+        postCategories: this.state.postCategories,
+        onAddCategory: this.categorizePost,
+        onRemoveCategory: this.uncategorizePost,
+        taxonomies: taxonomies
+      }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
+        href: "#",
+        title: "Remove site from this list",
+        className: "sites-list__delete-site",
+        onClick: this.props.removeSite
+      }, "Remove ", site.info.name, " ", /*#__PURE__*/React.createElement("svg", {
+        width: "24",
+        height: "24",
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 24 24"
+      }, /*#__PURE__*/React.createElement("title", null, "Trash"), /*#__PURE__*/React.createElement("rect", {
+        x: "0",
+        fill: "none",
+        width: "24",
+        height: "24"
+      }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
+        d: "M6.187 8h11.625l-.695 11.125C17.05 20.18 16.177 21 15.12 21H8.88c-1.057 0-1.93-.82-1.997-1.875L6.187 8zM19 5v2H5V5h3V4c0-1.105.895-2 2-2h4c1.105 0 2 .895 2 2v1h3zm-9 0h4V4h-4v1z"
+      })))))));
+    }
+  }]);
+}(React.Component);
+
+;// ./src/client/error-message.jsx
+/* harmony default export */ var error_message = (function (props) {
+  if (!props.msg) {
+    return null;
+  }
+  var errorMatch = props.msg.message.match(/"message":"(.*?)"}/);
+  var errorBody = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("code", {
+    style: {
+      fontSize: '12px',
+      wordWrap: 'break-word'
+    }
+  }, props.msg.message)), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("a", {
+    href: "https://support.wordpress.com",
+    target: "_blank"
+  }, "Please report this error")));
+  var errorHasMessage = function errorHasMessage(msg) {
+    return props.msg.message.indexOf(msg) !== -1;
+  };
+
+  // Bit of sniffing
+  if (errorHasMessage('API calls to this blog have been disabled')) {
+    errorBody = /*#__PURE__*/React.createElement("p", null, "Jetpack JSON API has been disabled - please ", /*#__PURE__*/React.createElement("a", {
+      href: "https://apps.wordpress.com/google-docs/support/#json-api",
+      target: "_blank"
+    }, "re-enable it"), " to continue posting.");
+  } else if (errorHasMessage('cURL error 28:') || errorHasMessage('Saving has timed out.')) {
+    errorBody = /*#__PURE__*/React.createElement("p", null, "Connection to your site timed out. Try again and/or investigate server load.");
+  } else if (errorHasMessage('[-32700]')) {
+    errorBody = /*#__PURE__*/React.createElement("p", null, "Your site returned an unexpected response - are you ", /*#__PURE__*/React.createElement("a", {
+      href: "https://apps.wordpress.com/google-docs/support/#other-plugins"
+    }, "running plugins"), " that may be causing a problem?");
+  } else if (errorHasMessage('HTTP status code was not 200')) {
+    errorBody = /*#__PURE__*/React.createElement("p", null, "Your server returned an unexpected response. This could be a misconfiguration, a bad plugin, or something may be broken. ", /*#__PURE__*/React.createElement("a", {
+      href: "https://apps.wordpress.com/google-docs/support/#unexpected-response"
+    }, "Don't panic yet though!"));
+  } else if (errorMatch && errorMatch.length > 0) {
+    errorBody = /*#__PURE__*/React.createElement("p", null, errorMatch[1]);
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: "error",
+    style: {
+      margin: '0px 6px',
+      position: 'relative'
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      width: '100%'
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    onClick: props.clearError,
+    style: {
+      cursor: 'pointer',
+      position: 'absolute',
+      right: '5px',
+      top: '12px'
+    },
+    width: "24",
+    height: "24",
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 24 24"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "0",
+    fill: "none",
+    width: "24",
+    height: "24"
+  }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
+    d: "M17.705 7.705l-1.41-1.41L12 10.59 7.705 6.295l-1.41 1.41L10.59 12l-4.295 4.295 1.41 1.41L12 13.41l4.295 4.295 1.41-1.41L13.41 12l4.295-4.295z"
+  }))), /*#__PURE__*/React.createElement("strong", null, "Error ", props.errorTitle)), errorBody);
+});
+__webpack_require__.dn(error_message);
+;// ./src/client/app.jsx
+function app_typeof(o) { "@babel/helpers - typeof"; return app_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, app_typeof(o); }
+function app_classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function app_defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, app_toPropertyKey(o.key), o); } }
+function app_createClass(e, r, t) { return r && app_defineProperties(e.prototype, r), t && app_defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function app_toPropertyKey(t) { var i = app_toPrimitive(t, "string"); return "symbol" == app_typeof(i) ? i : i + ""; }
+function app_toPrimitive(t, r) { if ("object" != app_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != app_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function app_callSuper(t, o, e) { return o = app_getPrototypeOf(o), app_possibleConstructorReturn(t, app_isNativeReflectConstruct() ? Reflect.construct(o, e || [], app_getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function app_possibleConstructorReturn(t, e) { if (e && ("object" == app_typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return app_assertThisInitialized(t); }
+function app_assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function app_isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (app_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function app_getPrototypeOf(t) { return app_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, app_getPrototypeOf(t); }
+function app_inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && app_setPrototypeOf(t, e); }
+function app_setPrototypeOf(t, e) { return app_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, app_setPrototypeOf(t, e); }
+/* global React */
+
+
+
+var App = /*#__PURE__*/function (_React$Component) {
+  function App(props) {
+    var _this;
+    app_classCallCheck(this, App);
+    _this = app_callSuper(this, App, [props]);
+    _this.state = {
+      sitesLoaded: false,
+      sites: [],
+      error: null,
+      authorizationUrl: null
+    };
+    _this.updateAuthUrl = _this.updateAuthUrl.bind(_this);
+    _this.updateSiteList = _this.updateSiteList.bind(_this);
+    _this.errorHandler = _this.errorHandler.bind(_this);
+    _this.clearError = _this.clearError.bind(_this);
+    return _this;
+  }
+  app_inherits(App, _React$Component);
+  return app_createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+      this.updateSiteList();
+      this.updateAuthUrl();
+      this.authTimer = setInterval(function () {
+        return _this2.updateAuthUrl();
+      }, 1000 * 60 * 3);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearInterval(this.authTimer);
+    }
+  }, {
+    key: "updateSiteList",
+    value: function updateSiteList() {
+      var _this3 = this;
+      loadSites().then(function (sites) {
+        return _this3.setState({
+          sites: sites,
+          sitesLoaded: true
+        });
+      })["catch"](function (e) {
+        return _this3.setState({
+          error: e
+        });
+      });
+    }
+  }, {
+    key: "updateAuthUrl",
+    value: function updateAuthUrl() {
+      var _this4 = this;
+      getAuthUrl().then(function (authorizationUrl) {
+        return _this4.setState({
+          authorizationUrl: authorizationUrl
+        });
+      })["catch"](function (e) {
+        return _this4.setState({
+          error: e
+        });
+      });
+    }
+  }, {
+    key: "errorHandler",
+    value: function errorHandler(e) {
+      this.setState({
+        error: e
+      });
+    }
+  }, {
+    key: "clearError",
+    value: function clearError() {
+      this.setState({
+        error: null
+      });
+    }
+  }, {
+    key: "removeSite",
+    value: function removeSite(blog_id) {
+      return deleteSite(blog_id).then(this.updateSiteList)["catch"](this.errorHandler);
+    }
+  }, {
+    key: "setPost",
+    value: function setPost(blog_id, post) {
+      var sites = this.state.sites.map(function (site) {
+        if (site.blog_id !== blog_id) {
+          return site;
+        }
+        return Object.assign({}, site, {
+          post: post
+        });
+      });
+      this.setState({
+        sites: sites
+      });
+    }
+
+    /**
+     * @param {number} blog_id unique id for the site
+     * @returns {Promise} for new site information
+     */
+  }, {
+    key: "updateSite",
+    value: function updateSite(blog_id) {
+      var _this5 = this;
+      return refreshSite(blog_id).then(function (updatedSite) {
+        var sites = _this5.state.sites.map(function (site) {
+          return site.blog_id === updatedSite.blog_id ? updatedSite : site;
+        });
+        _this5.setState({
+          sites: sites
+        });
+        return updatedSite;
+      })["catch"](this.errorHandler);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this6 = this;
+      var hasSites = this.state.sitesLoaded && this.state.sites.length > 0;
+      var headerCopy = hasSites ? 'Pick a site to copy this document to below. It will be saved on your site as a draft.' : 'Welcome! To get started, add your first WordPress.com or Jetpack-connected site by clicking the button at the bottom.';
+      var loadingMessage = !this.state.sitesLoaded ? /*#__PURE__*/React.createElement("p", {
+        className: "loading"
+      }, "Loading\u2026") : null;
+      return /*#__PURE__*/React.createElement("div", {
+        className: "container"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "header"
+      }, /*#__PURE__*/React.createElement("h1", null, /*#__PURE__*/React.createElement("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 24 24"
+      }, /*#__PURE__*/React.createElement("rect", {
+        x: "0",
+        fill: "none",
+        width: "24",
+        height: "24"
+      }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
+        d: "M21 11v8c0 1.105-.895 2-2 2H5c-1.105 0-2-.895-2-2V5c0-1.105.895-2 2-2h8l-2 2H5v14h14v-6l2-2zM7 17h3l7.5-7.5-3-3L7 14v3zm9.94-12.94L15.5 5.5l3 3 1.44-1.44c.585-.585.585-1.535 0-2.12l-.88-.88c-.585-.585-1.535-.585-2.12 0z"
+      }))), " Draft to WordPress"), /*#__PURE__*/React.createElement("div", {
+        className: "header__help-text"
+      }, /*#__PURE__*/React.createElement("p", null, headerCopy))), /*#__PURE__*/React.createElement("div", {
+        className: "sites-list",
+        id: "sites-list"
+      }, loadingMessage, /*#__PURE__*/React.createElement("ul", null, this.state.sites.map(function (site) {
+        return /*#__PURE__*/React.createElement(Site, {
+          key: site.blog_id,
+          site: site,
+          errorHandler: _this6.errorHandler,
+          setPost: _this6.setPost.bind(_this6, site.blog_id),
+          removeSite: _this6.removeSite.bind(_this6, site.blog_id),
+          refreshSite: _this6.updateSite.bind(_this6, site.blog_id),
+          updateSiteList: _this6.updateSiteList
+        });
+      }), /*#__PURE__*/React.createElement("li", {
+        className: "sites-list__add-site"
+      }, /*#__PURE__*/React.createElement("a", {
+        className: "button button-secondary",
+        href: this.state.authorizationUrl,
+        target: "_blank"
+      }, "Add WordPress Site")))), /*#__PURE__*/React.createElement(error_message, {
+        msg: this.state.error,
+        clearError: this.clearError
+      }), /*#__PURE__*/React.createElement("div", {
+        className: "footer"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "footer__help-link"
+      }, /*#__PURE__*/React.createElement("a", {
+        title: "Help",
+        href: "https://apps.wordpress.com/google-docs/support/"
+      }, /*#__PURE__*/React.createElement("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 24 24"
+      }, /*#__PURE__*/React.createElement("rect", {
+        x: "0",
+        fill: "none",
+        width: "24",
+        height: "24"
+      }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
+        d: "M12 4c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8m0-2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4 8c0-2.21-1.79-4-4-4s-4 1.79-4 4h2c0-1.103.897-2 2-2s2 .897 2 2-.897 2-2 2c-.552 0-1 .448-1 1v2h2v-1.14c1.722-.447 3-1.998 3-3.86zm-3 6h-2v2h2v-2z"
+      })))))));
+    }
+  }]);
+}(React.Component);
+
+;// ./src/client/index.jsx
+/* global document, React, ReactDOM */
+
+ReactDOM.render(/*#__PURE__*/React.createElement(App, null), document.getElementById('container'));
+}();
+/******/ })()
+;</script>

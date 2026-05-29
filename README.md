@@ -27,8 +27,8 @@ Everything is now setup.
 
 `npm run deploy`
 
-This will use node-google-apps-script to upload the `src` directory to the
-add-on's script editor.
+This builds the `dist` directory and uses `clasp` to upload it to the add-on's
+script editor.
 
 # Testing
 
