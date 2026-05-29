@@ -3,3 +3,14 @@ test/**
 node_modules/**
 .prettierrc.js
 src/**
+scripts/**
+package*.json
+README.md
+CHANGELOG.md
+CREDITS.md
+LICENSE.md
+.babelrc
+.circleci/**
+.git/**
+.gitignore
+.eslint*
