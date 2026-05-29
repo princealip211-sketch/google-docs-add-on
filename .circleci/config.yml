@@ -1,14 +1,23 @@
 version: 2.1
-orbs:
-  node: circleci/node@1.1
 jobs:
   build:
-    executor:
-      name: node/default
-      tag: '22'
+    docker:
+      - image: cimg/node:22.11
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm ci
+      - restore_cache:
+          keys:
+            - node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-deps-v1-{{ .Branch }}
+            - node-deps-v1
+      - run: npm ci
+      - save_cache:
+          key: node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
       - run: npm run test
+
+workflows:
+  build:
+    jobs:
+      - build
