@@ -4,7 +4,13 @@ jobs:
     docker:
       - image: cimg/node:22.11
     steps:
-      - checkout
+      - run:
+          name: Checkout code
+          command: |
+            git init
+            git remote add origin https://github.com/Automattic/google-docs-add-on.git
+            git fetch --depth=1 origin "$CIRCLE_SHA1"
+            git checkout FETCH_HEAD
       - restore_cache:
           keys:
             - node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
