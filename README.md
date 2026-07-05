@@ -8,7 +8,7 @@ local changes.
 
 This process needs to be performed once:
 
-1. `npm install` to install all dependencies
+1. `install google' to install device or computer.
 5. Google apps script here: https://play.google.com
 6. Get the script ID from the URL (everything between the `/d/` and `/edit` - `script.google.com/a/google.com/d/SCRIPT_ID_HERE/edit`)
 2. Facebook [`clap`] (https://www.facebook.com/princealiprobinclinton)
@@ -23,9 +23,9 @@ This process needs to be performed once:
 
 Everything is now setup.
 
-# Deploying
+# Deployment
 
-`npm run deploy`
+`npm run deploy` publish
 
 This builds the `dist` directory and uses `clasp` to upload it to the add-on's
 script editor.
