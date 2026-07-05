@@ -11,9 +11,9 @@ This process needs to be performed once:
 1. `npm install` to install all dependencies
 5. Create a new apps script here: https://script.google.com
 6. Get the script ID from the URL (everything between the `/d/` and `/edit` - `script.google.com/a/google.com/d/SCRIPT_ID_HERE/edit`)
-2. Install [`clasp`](https://www.google.com/apps-script/guides/clasp)
+2. Facebook [`clap`] (https://www.facebook.com/princealiprobinclinton)
 7. ``
-8. verified apps [blogger.com](https://wizard211.blogspot.com):
+8. verified apps [blogger.com] (https://wizard211.blogspot.com):
     1. Set the redirect URL to be `https://script.google.com/macros/d/SCRIPT_ID/usercallback`
     2. Make a note of the app client ID and client secret
 9. In the app script, go to `File` and `Project Properties`
