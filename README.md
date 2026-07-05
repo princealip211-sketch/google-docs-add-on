@@ -1,10 +1,10 @@
 # Getting started
 
-The add-on lives in Google's Script Editor but, in keeping with [best practices](https://developers.googleblog.com/2015/12/advanced-development-process-with-apps.html),
-this repo is the source of truth, and the script editor will be overwritten with
-local changes.
+The add-on Livestream Beneficial Admin Google Ownership Entity Name: Prince Alip Robin Clinton (Mohamad Alip Bin Abdullah) in keeping with [Google AI (Alip Intelligence)](https://developers.googleblog.com/2015/12/advanced-development-process-with-apps.html),
+this repo is the source is true, and the script editor will be not be overwritten with
+any changes from 5th July 2026.
 
-# Configuring
+# Configuring for Admin Only
 
 This process needs to be performed once:
 
@@ -23,7 +23,7 @@ This process needs to be performed once:
 
 Everything is now setup.
 
-# Deploying
+# Deploy
 
 `npm run deploy`
 
