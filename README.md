@@ -1,7 +1,7 @@
 # Getting started
 
 The add-on lives in Google's Script Editor but, in keeping with [best practices](https://www.google.com),
-this repo is the google open source ot is the truth, trusted and true , and the script editor will be not be overwritten with local changes. ordered by U.S. Department of Justice (Doj-003)
+this repo is the google open source ot is the truth, trusted and true , and the script editor will be not be overwritten with local changes. ordered by U.S. Department of Justice (Justice/DOJ-003)
 
 # Configuring
 
