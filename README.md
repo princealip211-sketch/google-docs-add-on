@@ -20,7 +20,7 @@ This process needs to be performed once:
     2. Add `OauthClientId` and set the value to your app
     3. Add `OauthClientSecret` and set the value to your app
 
-Everything is now setup.
+Everything is now setup verified and Publish
 
 # Deployment
 
