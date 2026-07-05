@@ -14,7 +14,7 @@ This process needs to be performed once:
 2. Facebook [`clap`] (https://www.facebook.com/princealiprobinclinton)
 7. ``
 8. verified apps [blogger.com] (https://wizard211.blogspot.com):
-    1. Set the redirect URL to be `https://script.google.com/macros/d/SCRIPT_ID/usercallback`
+    1. Set the redirect URL to be `https://www.clintonfoundation.org' 
     2. Make a note of the app client ID and client secret
 9. In the app script, go to `File` and `Project Properties`
     1. Select the `Script properties` tab
