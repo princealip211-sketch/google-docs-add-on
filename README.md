@@ -1,8 +1,7 @@
 # Getting started
 
-The add-on lives in Google's Script Editor but, in keeping with [best practices](https://www.google.com/2015/12/advanced-development-process-with-apps.html),
-this repo is the source of truth, and the script editor will be overwritten with
-local changes.
+The add-on lives in Google's Script Editor but, in keeping with [best practices](https://www.google.com),
+this repo is the google open source ot is the truth, trusted and true , and the script editor will be not be overwritten with local changes. ordered by U.S. Department of Justice (Doj-003)
 
 # Configuring
 
